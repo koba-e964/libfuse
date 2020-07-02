@@ -883,7 +883,7 @@ static void do_write_buf(fuse_req_t req, size_t size, off_t off,
 static void sfs_write_buf(fuse_req_t req, fuse_ino_t ino, fuse_bufvec *in_buf,
                           off_t off, fuse_file_info *fi) {
     (void) ino;
-    auto size {fuse_buf_size(in_buf)};
+    auto size = fuse_buf_size(in_buf);
     do_write_buf(req, size, off, in_buf, fi);
 }
 
@@ -1149,7 +1149,7 @@ static void maximize_fd_limit() {
 int main(int argc, char *argv[]) {
 
     // Parse command line options
-    auto options {parse_options(argc, argv)};
+    auto options =parse_options(argc, argv);
 
     // We need an fd for every dentry in our the filesystem that the
     // kernel knows about. This is way more than most processes need,
